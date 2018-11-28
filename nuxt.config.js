@@ -2,10 +2,6 @@ const pkg = require('./package');
 
 module.exports = {
   mode: 'universal',
-
-  /*
-  ** Headers of the page
-  */
   head: {
     title: pkg.name,
     meta: [
@@ -15,36 +11,25 @@ module.exports = {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-
-  /*
-  ** Customize the progress-bar color
-  */
   loading: { color: '#fff' },
-
-  /*
-  ** Global CSS
-  */
   css: [],
-
-  /*
-  ** Plugins to load before mounting the App
-  */
   plugins: [],
-
-  /*
-  ** Nuxt.js modules
-  */
   modules: [],
-
-  /*
-  ** Build configuration
-  */
   build: {
-    /*
-    ** You can extend webpack config here
-    */
+    postcss: {
+      plugins: {
+        'postcss-url': false,
+        'postcss-nested': {},
+        'postcss-responsive-type': {},
+        'postcss-hexrgba': {}
+      },
+      preset: {
+        autoprefixer: {
+          grid: true
+        }
+      }
+    },
     extend(config, ctx) {
-      // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',

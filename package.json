@@ -18,13 +18,19 @@
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0",
+    "autoprefixer": "^9.3.1",
     "babel-eslint": "^8.2.1",
     "eslint": "^5.0.1",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-vue": "^4.0.0",
     "eslint-config-prettier": "^3.1.0",
+    "eslint-loader": "^2.0.0",
     "eslint-plugin-prettier": "2.6.2",
-    "prettier": "1.14.3"
+    "eslint-plugin-vue": "^4.0.0",
+    "nodemon": "^1.11.0",
+    "postcss-hexrgba": "^1.0.1",
+    "postcss-nested": "^4.1.0",
+    "postcss-responsive-type": "^1.0.0",
+    "prettier": "1.14.3",
+    "pug": "2.0.3",
+    "pug-plain-loader": "^1.0.0"
   }
 }
