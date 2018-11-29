@@ -13,11 +13,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Logo from '~/components/Logo.vue';
 
 export default {
   components: {
     Logo
+  },
+  // async fetch({ store }) {
+  //   await store.dispatch('initScore');
+  // },
+  created() {
+    this.initScore();
+  },
+  methods: {
+    ...mapActions(['initScore'])
   }
 };
 </script>
