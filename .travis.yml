@@ -6,5 +6,8 @@ sudo: false
 cache: yarn
 install:
   - yarn global add codecov
+  - yarn
+script:
+  - yarn test
 notifications:
   slack: mirai-souzou-shitai:4myBTtpj7FkG5M22xvXAPfPx
