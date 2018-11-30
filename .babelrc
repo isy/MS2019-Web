@@ -1,0 +1,16 @@
+{
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "es2015",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ]
+    }
+  }
+}
