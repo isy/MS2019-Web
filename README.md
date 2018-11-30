@@ -1,22 +1,3 @@
-# ms2019-web
+# MS2019 Web Client
 
-> MS2019 Web Client
-
-## Build Setup
-
-``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn run dev
-
-# build for production and launch server
-$ yarn run build
-$ yarn start
-
-# generate static project
-$ yarn run generate
-```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+[![Build Status](https://travis-ci.org/isy/MS2019-Web.svg?branch=develop)](https://travis-ci.org/isy/MS2019-Web)
