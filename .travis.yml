@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - "8"
+dist: trusty
+sudo: false
+cache: yarn
+notifications:
+  slack: mirai-souzou-shitai:4myBTtpj7FkG5M22xvXAPfPx
