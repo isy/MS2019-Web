@@ -6,8 +6,5 @@ sudo: false
 cache: yarn
 install:
   - yarn global add codecov
-script:
-  - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
-  - codecov
 notifications:
   slack: mirai-souzou-shitai:4myBTtpj7FkG5M22xvXAPfPx
