@@ -46,6 +46,17 @@ module.exports = {
           exclude: /(node_modules)/
         });
       }
+      // FIXME: If Vetur supported, delete it.
+      for (let rule of config.module.rules) {
+        if (rule.test.test('.css')) {
+          config.module.rules.push({
+            test: /\.postcss/,
+            oneOf: rule.oneOf
+          });
+        }
+      }
+
+      return config;
     }
   }
 };

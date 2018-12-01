@@ -1,65 +1,138 @@
-<template>
-  <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">ms2019-web</h1>
-      <h2 class="subtitle">MS2019 Web Client</h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-      </div>
-    </div>
-  </section>
+<template lang="pug">
+  section.container
+    main.inner
+      .inner-header
+        .page-title
+          h1 RANKING
+        .header-contents
+          img.header-icon(src="~/assets/images/top.png")
+
+      .inner-contents
+        .rank-list(v-for="(score, idx) in scores" :key="idx")
+          rank-list-item.list-item(:rank="idx + 1")
+
+    //- .rank-list(v-for="(score, idx) in scores" :key="idx")
+    //-   component(:is="rankComponentHandler(idx)" :rank="idx + 1")
+    //-     span(slot="point") {{ score.score }}
+    //-     span(slot="name") {{ score.name }}
+    footer.page-footer
+
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import Logo from '~/components/Logo.vue';
+import { mapActions, mapState } from 'vuex';
+import AppRank from '~/components/AppRank';
+import AppRankFirst from '~/components/AppRankFirst';
+import AppRankSecond from '~/components/AppRankSecond';
+import AppRankThird from '~/components/AppRankThird';
+import RankListItem from '~/components/RankListItem';
 
 export default {
   components: {
-    Logo
+    AppRank,
+    AppRankFirst,
+    AppRankSecond,
+    AppRankThird,
+    RankListItem
   },
   // async fetch({ store }) {
   //   await store.dispatch('initScore');
   // },
+  computed: {
+    ...mapState({
+      scores: state => state.scores
+    })
+  },
   created() {
     this.initScore();
   },
   methods: {
-    ...mapActions(['initScore'])
+    ...mapActions(['initScore']),
+    rankComponentHandler(rank) {
+      switch (rank) {
+        case 0:
+          return 'AppRankFirst';
+          break;
+        case 1:
+          return 'AppRankSecond';
+          break;
+        case 2:
+          return 'AppRankThird';
+          break;
+        default:
+          return 'AppRank';
+      }
+    }
   }
 };
 </script>
 
-<style>
+<style lang="postcss" scoped>
 .container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+  .inner {
+    margin: 20vh auto 0 auto;
+    width: 50%;
+    height: 80vh;
+    box-shadow: 1px 1px 15px #d0e3f3;
+    border-radius: 5px;
+    background: #fff;
+    z-index: 2;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+    .inner-header {
+      min-height: 200px;
+      background: #008bff;
 
-.links {
-  padding-top: 15px;
+      .page-title {
+        text-align: center;
+        color: #fff;
+        padding: 10px 0;
+      }
+
+      .header-contents {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+
+        .header-icon {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          border: 3px solid #94c2e8;
+        }
+      }
+    }
+
+    .inner-contents {
+      width: 100%;
+
+      .rank-list {
+        width: 95%;
+        margin: 0 auto;
+
+        .list-item {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+
+  .page-footer {
+    width: 150%;
+    height: 100vh;
+    position: absolute;
+    border-radius: 50%;
+    background: #008bff;
+    bottom: -80vh;
+  }
 }
 </style>
