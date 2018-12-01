@@ -23,34 +23,19 @@ export default {
   components: {
     RankListItem
   },
-  async fetch({ store }) {
-    await store.dispatch('initScore');
-  },
+  // async fetch({ store }) {
+  //   await store.dispatch('initScore');
+  // },
   computed: {
     ...mapState({
       scores: state => state.scores
     })
   },
-  // created() {
-  //   this.initScore();
-  // },
+  mounted() {
+    this.initScore();
+  },
   methods: {
-    ...mapActions(['initScore']),
-    rankComponentHandler(rank) {
-      switch (rank) {
-        case 0:
-          return 'AppRankFirst';
-          break;
-        case 1:
-          return 'AppRankSecond';
-          break;
-        case 2:
-          return 'AppRankThird';
-          break;
-        default:
-          return 'AppRank';
-      }
-    }
+    ...mapActions(['initScore'])
   }
 };
 </script>
@@ -64,6 +49,8 @@ export default {
   position: relative;
 
   .inner {
+    animation: turn 2s linear forwards 1s;
+    transform: rotateX(180deg);
     margin: 20vh auto 0 auto;
     width: 50%;
     height: 80vh;
@@ -121,6 +108,12 @@ export default {
     border-radius: 50%;
     background: #008bff;
     bottom: -80vh;
+  }
+}
+
+@keyframes turn {
+  100% {
+    transform: rotateX(0deg);
   }
 }
 </style>

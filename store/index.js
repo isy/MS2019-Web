@@ -3,7 +3,12 @@ import { firebase, database } from '~/plugins/firebase';
 const refScores = database.ref('/scores');
 
 const initialState = {
-  scores: []
+  scores: [],
+  lastScore: {
+    uid: '',
+    name: '',
+    score: ''
+  }
 };
 
 export const state = () => {
@@ -20,24 +25,26 @@ export const mutations = {
   },
   addScore(state, { score }) {
     state.scores.push(score);
+  },
+  addLastScore(state, { score }) {
+    state.lastScore = score;
   }
 };
 
 export const actions = {
   async initScore({ commit }) {
     let newItem = false;
-    await refScores
-      // .endAt()
-      // .limitToLast(1)
-      .on('child_added', snapshot => {
-        if (!newItem) return;
-        commit('addScore', {
-          score: {
-            uid: snapshot.key,
-            ...snapshot.val()
-          }
-        });
-      });
+    await refScores.on('child_added', snapshot => {
+      if (!newItem) return;
+      const { name, score } = snapshot.val();
+      window.location.href = `/new?name=${name}&point=${score}`;
+      // commit('addLastScore', {
+      //   score: {
+      //     uid: snapshot.key,
+      //     ...snapshot.val()
+      //   }
+      // });
+    });
 
     await refScores.once('value', snapshot => {
       const scores = Object.entries(snapshot.val()).map(([uid, value]) => ({
@@ -47,5 +54,18 @@ export const actions = {
       commit('initScore', { scores });
       newItem = true;
     });
+  },
+  async fetchLastScore({ commit }) {
+    await refScores
+      .endAt()
+      .limitToLast(1)
+      .once('child_added', snapshot => {
+        commit('addLastScore', {
+          score: {
+            uid: snapshot.key,
+            ...snapshot.val()
+          }
+        });
+      });
   }
 };
