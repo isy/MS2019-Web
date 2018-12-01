@@ -9,43 +9,31 @@
 
       .inner-contents
         .rank-list(v-for="(score, idx) in scores" :key="idx")
-          rank-list-item.list-item(:rank="idx + 1")
+          rank-list-item.list-item(:rank="idx + 1" :score="score")
 
-    //- .rank-list(v-for="(score, idx) in scores" :key="idx")
-    //-   component(:is="rankComponentHandler(idx)" :rank="idx + 1")
-    //-     span(slot="point") {{ score.score }}
-    //-     span(slot="name") {{ score.name }}
     footer.page-footer
 
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import AppRank from '~/components/AppRank';
-import AppRankFirst from '~/components/AppRankFirst';
-import AppRankSecond from '~/components/AppRankSecond';
-import AppRankThird from '~/components/AppRankThird';
 import RankListItem from '~/components/RankListItem';
 
 export default {
   components: {
-    AppRank,
-    AppRankFirst,
-    AppRankSecond,
-    AppRankThird,
     RankListItem
   },
-  // async fetch({ store }) {
-  //   await store.dispatch('initScore');
-  // },
+  async fetch({ store }) {
+    await store.dispatch('initScore');
+  },
   computed: {
     ...mapState({
       scores: state => state.scores
     })
   },
-  created() {
-    this.initScore();
-  },
+  // created() {
+  //   this.initScore();
+  // },
   methods: {
     ...mapActions(['initScore']),
     rankComponentHandler(rank) {
