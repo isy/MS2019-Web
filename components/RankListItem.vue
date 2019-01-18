@@ -5,7 +5,7 @@
     .icon
       img.image-icon(:src="require('~/assets/images/hero' + (rank % 3 + 1) + '.png')")
     .user-name
-      span {{ score.name }}
+      span {{ score.name || '匿名さん' }}
     .user-point
       span {{ score.score }} pt
     .crown(v-if="rank <= 3")
